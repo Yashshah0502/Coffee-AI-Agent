@@ -2,3 +2,4 @@ openAI
 pandas
 numpy
 dotenv
+mlxtend
