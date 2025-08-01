@@ -5,3 +5,4 @@ dotenv
 mlxtend
 firebase-admin
 google-cloud-storage
+pinecone
