@@ -1,0 +1,6 @@
+openAI
+pandas
+numpy
+dotenv
+pinecone
+runpod
