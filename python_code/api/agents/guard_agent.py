@@ -2,7 +2,7 @@ import os
 import dotenv
 from copy import deepcopy
 from openai import OpenAI
-from .utlis import get_chatbot_respnse
+from .utils import get_chatbot_respnse
 import json
 
 dotenv.load_dotenv()

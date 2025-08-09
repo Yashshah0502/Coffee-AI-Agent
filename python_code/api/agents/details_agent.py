@@ -2,8 +2,8 @@ import os
 import dotenv
 from copy import deepcopy
 from openai import OpenAI
-from .utlis import get_chatbot_respnse, get_embedding
-from pinecone import pinecone
+from .utils import get_chatbot_respnse, get_embedding
+from pinecone import Pinecone
 import json
 
 dotenv.load_dotenv()
@@ -17,10 +17,10 @@ class DetailsAgent():
         self.model_name = os.getenv("MODEL_NAME")
         self.embedding_client = OpenAI(
             api_key=os.getenv("RUNPOD_TOKEN"), 
-            base_url=os.getenv("RUNPOD_EMBEDIING_URL")
+            base_url=os.getenv("RUNPOD_EMBEDDING_URL")
         )
-        self.pc = pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-        self.index = os.getenv("PINECONE_INDEX_NAME")
+        self.pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+        self.index_name = os.getenv("PINECONE_INDEX_NAME")
 
     def get_closet_response(self, index_name, input_embeddings, top_k =2):
         index = self.pc.Index(index_name)
