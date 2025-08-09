@@ -1,4 +1,4 @@
-from agents import (GuardAgent, ClassificationAgent)
+from agents import (GuardAgent, ClassificationAgent, DetailsAgent)
 import os
 
 def main():
@@ -7,6 +7,7 @@ def main():
 if __name__ == "__main__":
     guard_agent = GuardAgent()
     classification_agent = ClassificationAgent()
+    
 
     messages = []
 
