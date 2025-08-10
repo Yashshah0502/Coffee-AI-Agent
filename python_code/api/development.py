@@ -14,7 +14,7 @@ if __name__ == "__main__":
         os.path.join(folder_path, 'recommendation_objects/popularity_recommendation.csv')
     )
 
-    print(recommendation_agent.get_popular_recommendations(product_category="Bakery"))
+    print(recommendation_agent.get_apriori_recommendation(['Latte']))
 # if __name__ == "__main__":
 #     guard_agent = GuardAgent()
 #     classification_agent = ClassificationAgent()

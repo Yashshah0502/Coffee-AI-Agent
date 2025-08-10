@@ -22,6 +22,38 @@ class RecommendationAgent():
         self.products = self.popular_recommendations['product'].tolist()
         self.product_category = self.popular_recommendations['product_category'].tolist()
 
+    def get_apriori_recommendation(self, products, top_k=5):
+        recommendation_list = []
+
+        for product in products:
+            if product in self.apriori_recommendations:
+                recommendation_list += self.apriori_recommendations[product]
+            
+        recommendation_list = sorted(recommendation_list, key=lambda x: x['confidence'], reverse=True)
+
+        recommendations = []
+        recommendations_per_category = {}
+
+        for recommendation in recommendation_list:
+            if recommendation in recommendations:
+                continue
+
+            product_category = recommendation['product_category']
+            if product_category not in recommendations_per_category:
+                recommendations_per_category[product_category] = 0
+
+            if recommendations_per_category[product_category] >=2:
+                    continue
+            
+            recommendations_per_category[product_category] += 1
+
+            recommendations.append(recommendation['product'])
+
+            if len(recommendations) >= top_k:
+                break
+
+        return recommendations
+    
     def get_popular_recommendations(self, product_category = None, top_k=5):
         recommendation_df = self.popular_recommendations
 
