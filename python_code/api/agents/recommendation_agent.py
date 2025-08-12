@@ -108,6 +108,7 @@ class RecommendationAgent():
         return dict_output
     
     def get_recommendation_from_order(self, messages, order):
+        messages = deepcopy(messages)
         products = []
 
         for product in order:
@@ -137,6 +138,22 @@ class RecommendationAgent():
 
         return output
     
+    def get_response(self, messages):
+        messages = deepcopy(messages)
+        recommendation_classification = self.recommendation_classification(messages)
+        recommandation_type = recommendation_classification['recommendation_type']
+
+        if recommandation_type == "apriori":
+            recommendations = self.get_apriori_recommendation(recommendation_classification['parameters'])
+        elif recommandation_type == "popular":
+            recommendations = self.get_popular_recommendations()
+        elif recommandation_type == "popular by category":
+            recommendations = self.get_popular_recommendations(recommendation_classification['parameters'])
+
+        if recommendations == []:
+            return {"role": "assistant", "content":"Sorry, I can't help with that. Can I help you with your order?"}
+
+
     def get_recommendation(self, messages):
         output = {
             "role": "assistant",
