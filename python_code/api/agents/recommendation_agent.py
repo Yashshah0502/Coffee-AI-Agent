@@ -152,13 +152,36 @@ class RecommendationAgent():
 
         if recommendations == []:
             return {"role": "assistant", "content":"Sorry, I can't help with that. Can I help you with your order?"}
+        
+      # Respond to User
+        recommendations_str = ", ".join(recommendations)
+        
+        system_prompt = f"""
+        You are a helpful AI assistant for a coffee shop application which serves drinks and pastries.
+        your task is to recommend items to the user based on their input message. And respond in a friendly but concise way. And put it an unordered list with a very small description.
 
+        I will provide what items you should recommend to the user based on their order in the user message. 
+        """
 
-    def get_recommendation(self, messages):
+        prompt = f"""
+        {messages[-1]['content']}
+
+        Please recommend me those items exactly: {recommendations_str}
+        """
+
+        messages[-1]['content'] = prompt
+        input_messages = [{"role": "system", "content": system_prompt}] + messages[-3:]
+
+        chatbot_output = get_chatbot_respnse(self.client,self.model_name,input_messages)
+        output = self.postprocess(chatbot_output)
+
+        return output
+    
+    def postprocess(self,output):
         output = {
             "role": "assistant",
             "content": output,
-            "memory": {"agent": "recommendation_agent"}
+            "memory": {"agent":"recommendation_agent"
+                      }
         }
-
         return output
