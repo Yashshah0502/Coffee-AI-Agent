@@ -2,7 +2,7 @@ import os
 import dotenv
 from copy import deepcopy
 from openai import OpenAI
-from .utils import get_chatbot_respnse, get_embedding
+from .utils import get_chatbot_respnse, get_embedding, double_check_json_output
 from pinecone import Pinecone
 import json
 import pandas as pd
@@ -95,6 +95,7 @@ class RecommendationAgent():
         input_messages = [{"role": "system", "content": system_prompt}] + messages[-3:]
 
         chatbot_output =get_chatbot_respnse(self.client,self.model_name,input_messages)
+        chatbot_output = double_check_json_output(self.client,self.model_name,chatbot_output)
         output = self.postprocess_classfication(chatbot_output)
         return output
 
