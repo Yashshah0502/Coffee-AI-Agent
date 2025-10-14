@@ -29,7 +29,8 @@ def double_check_json_output(client,model_name,json_string):
 
     If there is any text before or after the json string, remove it.
     Do NOT return a single letter outside of the json string.
-    The first thing you write should be open curly brace of the json string and the last thing you write should be the closing curly brace of the json string.
+    Make sure that each key is enclosed in double quotes.
+     The first thing you write should be open curly brace of the json string and the last thing you write should be the closing curly brace of the json string.
 
     You should check the JSON string for the following text between triple backticks:
     ```

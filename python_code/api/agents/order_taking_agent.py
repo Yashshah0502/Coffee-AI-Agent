@@ -1,6 +1,6 @@
 import os
 import json
-from .utils import get_chatbot_respnse,double_check_json_output
+from .utils import get_chatbot_respnse, double_check_json_output
 from openai import OpenAI
 from copy import deepcopy
 from dotenv import load_dotenv
@@ -13,7 +13,7 @@ class OrderTakingAgent():
             api_key=os.getenv("RUNPOD_TOKEN"),
             base_url=os.getenv("RUNPOD_CHATBOT_URL"),
         )
-        self.model_name = os.getenv("MODEL_NAME") 
+        self.model_name = os.getenv("MODEL_NAME")
 
         self.recommendation_agent = recommendation_agent
     
@@ -97,15 +97,19 @@ class OrderTakingAgent():
         input_messages = [{"role": "system", "content": system_prompt}] + messages        
 
         chatbot_output = get_chatbot_respnse(self.client,self.model_name,input_messages)
+        print("Raw Order Taking Output:", chatbot_output)  
 
         # double check json 
         chatbot_output = double_check_json_output(self.client,self.model_name,chatbot_output)
+        print("After double-check:", chatbot_output)
 
         output = self.postprocess(chatbot_output,messages,asked_recommendation_before)
+        print("Final output:", output)
 
         return output
 
     def postprocess(self,output,messages,asked_recommendation_before):
+        print("Postprocess input:", output)  # ADD THIS
         output = json.loads(output)
 
         if type(output["order"]) == str:
@@ -113,19 +117,21 @@ class OrderTakingAgent():
 
         response = output['response']
         if not asked_recommendation_before and len(output["order"])>0:
-            recommendation_output = self.recommendation_agent.get_recommendation_from_order(messages, output['order'])
+            print("Calling recommendation agent...")  # ADD THIS
+            recommendation_output = self.recommendation_agent.get_recommendation_from_order(messages,output['order'])
+            print("Recommendation output:", recommendation_output)  # ADD THIS
             response = recommendation_output['content']
             asked_recommendation_before = True
 
         dict_output = {
             "role": "assistant",
-            "content": response ,
+            "content": response,
             "memory": {"agent":"order_taking_agent",
-                       "step number": output["step number"],
-                       "order": output["order"],
-                       "asked_recommendation_before": asked_recommendation_before
-                      }
+                    "step number": output.get("step number", "1"),
+                    "order": output.get("order", []),
+                    "asked_recommendation_before": asked_recommendation_before
+                    }
         }
 
-        
         return dict_output
+        
