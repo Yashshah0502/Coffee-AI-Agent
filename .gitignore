@@ -5,6 +5,7 @@ __pycache__/
 *.pyd
 *.pyo
 *.pyc
+*.env
 *.cpython*
 
 # Virtual environment folders
