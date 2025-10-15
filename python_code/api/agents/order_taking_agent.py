@@ -97,19 +97,19 @@ class OrderTakingAgent():
         input_messages = [{"role": "system", "content": system_prompt}] + messages        
 
         chatbot_output = get_chatbot_respnse(self.client,self.model_name,input_messages)
-        print("Raw Order Taking Output:", chatbot_output)  
+        # print("Raw Order Taking Output:", chatbot_output)  
 
         # double check json 
         chatbot_output = double_check_json_output(self.client,self.model_name,chatbot_output)
-        print("After double-check:", chatbot_output)
+        # print("After double-check:", chatbot_output)
 
         output = self.postprocess(chatbot_output,messages,asked_recommendation_before)
-        print("Final output:", output)
+        # print("Final output:", output)
 
         return output
 
     def postprocess(self,output,messages,asked_recommendation_before):
-        print("Postprocess input:", output)  # ADD THIS
+        # print("Postprocess input:", output)  # ADD THIS
         output = json.loads(output)
 
         if type(output["order"]) == str:
@@ -117,9 +117,9 @@ class OrderTakingAgent():
 
         response = output['response']
         if not asked_recommendation_before and len(output["order"])>0:
-            print("Calling recommendation agent...")  # ADD THIS
+            # print("Calling recommendation agent...")  # ADD THIS
             recommendation_output = self.recommendation_agent.get_recommendation_from_order(messages,output['order'])
-            print("Recommendation output:", recommendation_output)  # ADD THIS
+            # print("Recommendation output:", recommendation_output)  # ADD THIS
             response = recommendation_output['content']
             asked_recommendation_before = True
 
