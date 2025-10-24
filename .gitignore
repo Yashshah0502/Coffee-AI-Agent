@@ -1,3 +1,7 @@
+# ============================================
+# Python Backend
+# ============================================
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -5,15 +9,182 @@ __pycache__/
 *.pyd
 *.pyo
 *.pyc
-*.env
 *.cpython*
 
-# Virtual environment folders
+# Distribution / packaging
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.whl
+
+# Virtual environments
 myenv/
 venv/
+env/
+ENV/
+.venv/
+.Python
 
-# VS Code settings
-.vscode/
+# ============================================
+# Environment & Secrets
+# ============================================
 
-# macOS system files
+# Environment files (IMPORTANT: Never commit API keys!)
+*.env
+.env
+.env.*
+!.env.example
+
+# Credentials
+*.pem
+*.key
+*.p8
+*.p12
+*.jks
+*.mobileprovision
+credentials.json
+service-account*.json
+
+# ============================================
+# Jupyter Notebooks
+# ============================================
+
+# Checkpoint files
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Notebook outputs (optional - uncomment if you want to ignore outputs)
+# *.ipynb
+
+# ============================================
+# Testing & Coverage
+# ============================================
+
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+coverage.xml
+*.cover
+
+# ============================================
+# Logs & Debugging
+# ============================================
+
+*.log
+logs/
+*.log.*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# ============================================
+# React Native / Expo Frontend
+# ============================================
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Expo
+.expo/
+.expo-shared/
+expo-env.d.ts
+web-build/
+
+# Metro bundler
+.metro-health-check*
+
+# Native builds (generated)
+coffee_shop_app/ios/
+coffee_shop_app/android/
+*.orig.*
+
+# ============================================
+# IDEs & Editors
+# ============================================
+
+# VSCode (keep settings.json for project config)
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+\#*\#
+.\#*
+
+# ============================================
+# Operating Systems
+# ============================================
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# ============================================
+# Temporary & Cache Files
+# ============================================
+
+*.tmp
+*.temp
+*.cache
+*.bak
+*.swp
+.cache/
+
+# TypeScript build info
+*.tsbuildinfo
+
+# ============================================
+# Project-Specific
+# ============================================
+
+# Large data files (if any)
+*.csv.gz
+*.parquet
+*.feather
+
+# Model files (if not versioned)
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.pt
+*.pth
+
+# Docker
+.dockerignore
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
